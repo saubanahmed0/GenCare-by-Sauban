@@ -28,7 +28,7 @@ A production-grade hospital appointment booking platform built with React.js, Ty
 
 1. **Navigate to the project directory:**
    ```bash
-   cd "Sauban HealthGen"
+   cd "GenCare by Sauban"
    ```
 
 2. **Install dependencies:**
