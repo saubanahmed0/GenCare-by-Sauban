@@ -68,7 +68,7 @@ export default function EmergencyButton() {
                   </div>
                 </a>
                 <div className="p-4 rounded-lg bg-muted">
-                  <p className="font-semibold mb-2">Sauban Emergency</p>
+                  <p className="font-semibold mb-2">GenCare Emergency</p>
                   <a href="tel:+919876543210" className="text-primary hover:underline">
                     +91 ***8890
                   </a>
