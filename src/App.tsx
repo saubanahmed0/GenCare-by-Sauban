@@ -16,7 +16,7 @@ import BySauban from './components/BySauban'
 function App() {
   return (
     <ThemeProvider defaultTheme="light" storageKey="sauban-healthgen-theme">
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <div className="min-h-screen bg-background">
           <Routes>
             <Route path="/" element={<Home />} />
