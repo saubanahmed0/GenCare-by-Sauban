@@ -38,19 +38,23 @@ export const specialties = [
 ];
 
 const maleNames = [
-  "Dr. Ahmed Khan", "Dr. Muhammad Ali", "Dr. Hassan Sheikh", "Dr. Omar Farooq", "Dr. Zain Malik",
-  "Dr. Ibrahim Hussain", "Dr. Yusuf Rahman", "Dr. Hamza Ansari", "Dr. Bilal Ahmad", "Dr. Tariq Islam",
-  "Dr. Saifuddin Khan", "Dr. Arif Sheikh", "Dr. Faisal Malik", "Dr. Nadeem Ahmed", "Dr. Rashid Ali",
-  "Dr. Asad Khan", "Dr. Usman Sheikh", "Dr. Imran Malik", "Dr. Salman Ahmad", "Dr. Waseem Ali",
-  "Dr. Farhan Khan", "Dr. Danish Sheikh", "Dr. Aamir Malik", "Dr. Sameer Ahmad", "Dr. Zubair Ali"
+"Dr. Ayaan Siddiqui", "Dr. Rahimullah Khan", "Dr. Mustafa Ansari", "Dr. Salman Qureshi", "Dr. Irfan Ahmed",
+"Dr. Shafiq Ali", "Dr. Kamran Malik", "Dr. Adnan Farooq", "Dr. Junaid Hassan", "Dr. Naveed Akhtar",
+"Dr. Faisal Rahman", "Dr. Imtiaz Hussain", "Dr. Sohail Abbas", "Dr. Rajesh Sharma", "Dr. Amit Verma",
+"Dr. Suresh Gupta", "Dr. Rohit Mehta", "Dr. Anil Kapoor", "Dr. Vikram Singh", "Dr. Prakash Joshi",
+"Dr. Ramesh Chandra", "Dr. Michael Anderson", "Dr. Daniel Thompson", "Dr. Karthik Rajan", "Dr. Suresh Raman"
+
 ];
 
 const femaleNames = [
-  "Dr. Aisha Khan", "Dr. Fatima Sheikh", "Dr. Zainab Malik", "Dr. Maryam Ahmad", "Dr. Khadija Ali",
-  "Dr. Amina Khan", "Dr. Hafsa Sheikh", "Dr. Safiya Malik", "Dr. Sumaiya Ahmad", "Dr. Hira Ali",
-  "Dr. Noor Khan", "Dr. Layla Sheikh", "Dr. Aaliyah Malik", "Dr. Mariam Ahmad", "Dr. Zara Ali",
-  "Dr. Sarah Khan", "Dr. Ayesha Sheikh", "Dr. Rabia Malik", "Dr. Sana Ahmad", "Dr. Hina Ali",
-  "Dr. Nida Khan", "Dr. Amna Sheikh", "Dr. Farah Malik", "Dr. Saima Ahmad", "Dr. Nadia Ali"
+  "Dr. Ayesha Siddiqui", "Dr. Fatima Qureshi", "Dr. Zainab Ansari", "Dr. Mariam Farooq", "Dr. Huda Rahman",
+"Dr. Sana Ahmed", "Dr. Iman Hussain", "Dr. Rukhsar Ali", "Dr. Samira Khan", "Dr. Anum Sheikh",
+"Dr. Bushra Malik", "Dr. Tayyaba Noor", "Dr. Mehwish Akhtar",
+"Dr. Pooja Sharma", "Dr. Neha Verma", "Dr. Kavita Gupta", "Dr. Ritu Mehta", "Dr. Anjali Singh",
+"Dr. Sunita Joshi", "Dr. Rekha Chandra",
+"Dr. Emily Johnson", "Dr. Sophia Martinez",
+"Dr. Priya Raman", "Dr. Lakshmi Iyer", "Dr. Anitha Subramanian"
+
 ];
 
 const hospitalBranches = [
@@ -78,7 +82,7 @@ function generatePhoneNumber(): string {
 
 function generateEmail(name: string): string {
   const cleanName = name.toLowerCase().replace(/[^a-z]/g, "");
-  return `${cleanName}@saubanhealthgen.com`;
+  return `${cleanName}@saubanGenCare.com`;
 }
 
 function generateAvailableDates(): string[] {
@@ -97,7 +101,6 @@ function generateAvailableDates(): string[] {
 
 function generateDoctors(): Doctor[] {
   const doctors: Doctor[] = [];
-  const allNames = [...maleNames, ...femaleNames];
   
   // Ensure specialty distribution
   const specialtyCounts: Record<string, number> = {};
@@ -139,7 +142,7 @@ function generateDoctors(): Doctor[] {
       name,
       phone: generatePhoneNumber(),
       email: generateEmail(name),
-      image: `https://images.unsplash.com/photo-${isMale ? '1559839734' : '1494790108377'}-${Math.floor(Math.random() * 1000000)}?w=400&h=400&fit=crop&crop=faces`,
+      image: `/assets/doctors/doctor-${doctorId - 1}.jpg`,
       yearsOfExperience,
       rating,
       hospitalBranch: getRandomElement(hospitalBranches),
@@ -153,7 +156,7 @@ function generateDoctors(): Doctor[] {
         `MD in ${specialty}`,
         `Fellowship in Advanced ${specialty}`
       ],
-      hospitalAffiliation: `Sauban ${getRandomElement(hospitalBranches)}`,
+      hospitalAffiliation: `GenCare ${getRandomElement(hospitalBranches)}`,
       consultationFee,
       hospitalCharges,
       availableDates,

@@ -12,7 +12,7 @@ export default function Header() {
       <div className="container flex h-16 items-center justify-between px-4">
         <Link to="/" className="flex items-center space-x-2">
           <Heart className="h-6 w-6 text-primary" />
-          <span className="text-xl font-bold">Sauban</span>
+          <span className="text-xl font-bold">GenCare</span>
         </Link>
 
         <nav className="hidden md:flex items-center space-x-6">
