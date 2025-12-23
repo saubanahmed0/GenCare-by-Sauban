@@ -1,4 +1,4 @@
-# Sauban HealthGen - Hospital Appointment Booking Platform
+# GenCare by Sauban - Hospital Appointment Booking Platform
 
 A production-grade hospital appointment booking platform built with React.js, TypeScript, Tailwind CSS, and shadcn/ui. Designed for trust, clarity, speed, and security.
 
@@ -28,7 +28,7 @@ A production-grade hospital appointment booking platform built with React.js, Ty
 
 1. **Navigate to the project directory:**
    ```bash
-   cd "Sauban HealthGen"
+   cd "GenCare by Sauban"
    ```
 
 2. **Install dependencies:**
