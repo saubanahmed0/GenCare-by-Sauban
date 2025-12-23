@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Star, MapPin, Phone, Mail, Calendar, Video, User, Award } from 'lucide-react'
+import { Star, MapPin, Phone, Mail, Video, User, Award, Paperclip } from 'lucide-react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { doctors } from '../data/doctors'
@@ -8,9 +8,7 @@ import { Button } from '../components/ui/button'
 import { FullScreenCalendar } from '../components/ui/fullscreen-calendar'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select'
 import { Input } from '../components/ui/input'
-import { AnimatedTooltip } from '../components/ui/animated-tooltip'
 import { HoverBorderGradient } from '../components/ui/hover-border-gradient'
-import { format } from 'date-fns'
 
 export default function DoctorProfile() {
   const { id } = useParams()
@@ -20,6 +18,8 @@ export default function DoctorProfile() {
   const [selectedDate, setSelectedDate] = useState<string>('')
   const [selectedTime, setSelectedTime] = useState('')
   const [appointmentType, setAppointmentType] = useState<'physical' | 'video'>('physical')
+  const [diseaseProblem, setDiseaseProblem] = useState('')
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([])
 
   if (!doctor) {
     return (
@@ -61,7 +61,9 @@ export default function DoctorProfile() {
         doctor,
         date: selectedDate,
         time: selectedTime,
-        type: appointmentType
+        type: appointmentType,
+        diseaseProblem,
+        uploadedFiles
       }
     })
   }
@@ -194,6 +196,68 @@ export default function DoctorProfile() {
                       <Video className="mr-2 h-4 w-4" />
                       Video Consultation
                     </Button>
+                  </div>
+                </div>
+
+                {/* Medical Information Section */}
+                <div className="border-t pt-6 mt-6">
+                  <h3 className="text-lg font-semibold mb-4">Medical Information</h3>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2">Mention your actual disease/problem</label>
+                      <textarea
+                        value={diseaseProblem}
+                        onChange={(e) => setDiseaseProblem(e.target.value)}
+                        placeholder="Describe your symptoms, medical condition, or reason for visit..."
+                        className="flex min-h-[100px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+                        rows={4}
+                      />
+                    </div>
+
+                    <div className="relative">
+                      <label className="block text-sm font-medium mb-2">Upload old reports (PDF, Images)</label>
+                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
+                        <input
+                          type="file"
+                          multiple
+                          accept=".pdf,.jpg,.jpeg,.png,.gif"
+                          onChange={(e) => {
+                            const files = Array.from(e.target.files || [])
+                            setUploadedFiles(prev => [...prev, ...files])
+                          }}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <div className="flex flex-col items-center">
+                          <Paperclip className="h-8 w-8 text-gray-400 mb-2" />
+                          <p className="text-sm text-gray-600">
+                            Click to upload or drag and drop files here
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">
+                            PDF, JPG, PNG, GIF up to 10MB each
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {uploadedFiles.length > 0 && (
+                        <div className="mt-4 space-y-2">
+                          <p className="text-sm font-medium">Uploaded files:</p>
+                          {uploadedFiles.map((file, index) => (
+                            <div key={index} className="flex items-center justify-between bg-gray-50 p-2 rounded">
+                              <span className="text-sm text-gray-700">{file.name}</span>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setUploadedFiles(prev => prev.filter((_, i) => i !== index))}
+                                className="text-red-500 hover:text-red-700"
+                              >
+                                Remove
+                              </Button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
