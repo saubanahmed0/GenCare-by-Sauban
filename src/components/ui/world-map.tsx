@@ -4,21 +4,35 @@ import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import DottedMap from "dotted-map";
 
+interface Location {
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  atmosphere: string;
+  lat: number;
+  lng: number;
+}
+
 interface MapProps {
   dots?: Array<{
     start: { lat: number; lng: number; label?: string };
     end: { lat: number; lng: number; label?: string };
   }>;
+  locations?: Location[];
   lineColor?: string;
 }
 
 export function WorldMap({
   dots = [],
+  locations = [],
   lineColor = "#0ea5e9",
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
   const map = new DottedMap({ height: 100, grid: "diagonal" });
   const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [hoveredLocation, setHoveredLocation] = useState<Location | null>(null);
+  const [tooltipPosition, setTooltipPosition] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     const isDark = document.documentElement.classList.contains("dark");
@@ -179,6 +193,79 @@ export function WorldMap({
           </g>
         ))}
       </svg>
+
+      {/* Location points */}
+      <svg
+        viewBox="0 0 800 400"
+        className="w-full h-full absolute inset-0 pointer-events-none select-none"
+      >
+        {locations.map((location, i) => {
+          const point = projectPoint(location.lat, location.lng);
+          return (
+            <g key={`location-${i}`}>
+              <circle
+                cx={point.x}
+                cy={point.y}
+                r="6"
+                fill="#ef4444" // red color
+                className="pointer-events-auto cursor-pointer"
+                onMouseOver={(e) => {
+                  setHoveredLocation(location);
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  setTooltipPosition({ x: rect.left + rect.width / 2, y: rect.top });
+                }}
+                onMouseOut={() => {
+                  setHoveredLocation(null);
+                  setTooltipPosition(null);
+                }}
+              />
+              <circle
+                cx={point.x}
+                cy={point.y}
+                r="6"
+                fill="#ef4444"
+                opacity="0.3"
+                className="pointer-events-auto"
+              >
+                <animate
+                  attributeName="r"
+                  from="6"
+                  to="12"
+                  dur="2s"
+                  begin="0s"
+                  repeatCount="indefinite"
+                />
+                <animate
+                  attributeName="opacity"
+                  from="0.3"
+                  to="0"
+                  dur="2s"
+                  begin="0s"
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </g>
+          );
+        })}
+      </svg>
+
+      {/* Tooltip */}
+      {hoveredLocation && tooltipPosition && (
+        <div
+          className="absolute z-10 bg-black text-white p-3 rounded-lg shadow-lg max-w-xs pointer-events-none"
+          style={{
+            left: tooltipPosition.x,
+            top: tooltipPosition.y - 10,
+            transform: 'translate(-50%, -100%)',
+          }}
+        >
+          <h4 className="font-semibold text-sm">{hoveredLocation.name}</h4>
+          <p className="text-xs mt-1">{hoveredLocation.address}</p>
+          <p className="text-xs">{hoveredLocation.phone}</p>
+          <p className="text-xs">{hoveredLocation.email}</p>
+          <p className="text-xs mt-2 italic">{hoveredLocation.atmosphere}</p>
+        </div>
+      )}
     </div>
   );
 }
