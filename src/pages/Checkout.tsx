@@ -13,7 +13,7 @@ import { HoverBorderGradient } from '../components/ui/hover-border-gradient'
 export default function Checkout() {
   const location = useLocation()
   const navigate = useNavigate()
-  const { doctor, date, time, type } = location.state || {}
+  const { doctor, date, time, type, diseaseProblem, uploadedFiles } = location.state || {}
   const [showPaymentModal, setShowPaymentModal] = useState(false)
   const [showCongratulations, setShowCongratulations] = useState(false)
 
@@ -189,7 +189,7 @@ export default function Checkout() {
         onClose={() => {
           setShowCongratulations(false)
           navigate('/confirmation', {
-            state: { doctor, date, time, type, total }
+            state: { doctor, date, time, type, total, diseaseProblem, uploadedFiles }
           })
         }}
         doctorName={doctor.name}
