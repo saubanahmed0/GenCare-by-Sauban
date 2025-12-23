@@ -7,22 +7,40 @@ import { Button } from '../components/ui/button'
 export default function Locations() {
   const locations = [
     {
-      name: 'Mumbai Central',
-      address: '123 Medical Street, Mumbai, Maharashtra 400001',
-      phone: '+91 22 1234 5678',
-      email: 'mumbai@saubanhealthgen.com'
+      name: 'GenCare - Hyderabad',
+      address: '123 Medical Street, Hyderabad, Telangana 500001',
+      phone: '+91 40 1234 5678',
+      email: 'hyderabad@gencare.com',
+      atmosphere: 'State-of-the-art healthcare facility in the vibrant city of Hyderabad, offering comprehensive medical services with a focus on patient-centered care.',
+      lat: 17.3850,
+      lng: 78.4867
     },
     {
-      name: 'Delhi NCR',
-      address: '456 Health Avenue, New Delhi, Delhi 110001',
-      phone: '+91 11 2345 6789',
-      email: 'delhi@saubanhealthgen.com'
+      name: 'GenCare - Mumbai',
+      address: '456 Health Avenue, Mumbai, Maharashtra 400001',
+      phone: '+91 22 2345 6789',
+      email: 'mumbai@gencare.com',
+      atmosphere: 'Premier medical center in the bustling metropolis of Mumbai, providing advanced treatments and emergency care round the clock.',
+      lat: 19.0760,
+      lng: 72.8777
     },
     {
-      name: 'Bangalore South',
-      address: '789 Care Road, Bangalore, Karnataka 560001',
-      phone: '+91 80 3456 7890',
-      email: 'bangalore@saubanhealthgen.com'
+      name: 'GenCare - Kochi',
+      address: '789 Care Road, Kochi, Kerala 682001',
+      phone: '+91 484 3456 7890',
+      email: 'kochi@gencare.com',
+      atmosphere: 'Tranquil healthcare environment in the coastal city of Kochi, combining traditional healing practices with modern medical technology.',
+      lat: 9.9312,
+      lng: 76.2673
+    },
+    {
+      name: 'GenCare - Germany',
+      address: '101 Wellness Boulevard, Berlin, Germany 10115',
+      phone: '+49 30 1234 5678',
+      email: 'germany@gencare.com',
+      atmosphere: 'International medical excellence in the heart of Europe, offering world-class healthcare services with German precision and care.',
+      lat: 52.5200,
+      lng: 13.4050
     }
   ]
 
@@ -35,16 +53,7 @@ export default function Locations() {
 
         <div className="mb-12">
           <WorldMap
-            dots={[
-              {
-                start: { lat: 19.0760, lng: 72.8777 }, // Mumbai
-                end: { lat: 28.6139, lng: 77.2090 }, // Delhi
-              },
-              {
-                start: { lat: 28.6139, lng: 77.2090 }, // Delhi
-                end: { lat: 12.9716, lng: 77.5946 }, // Bangalore
-              }
-            ]}
+            locations={locations}
             lineColor="#0ea5e9"
           />
         </div>
